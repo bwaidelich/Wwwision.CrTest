@@ -1,0 +1,23 @@
+<?php
+namespace Wwwision\CrTest\Domain\Aggregate\Workspace;
+
+use Neos\Cqrs\EventStore\ExpectedVersion;
+use TYPO3\Flow\Annotations as Flow;
+
+/**
+ * @Flow\Scope("singleton")
+ */
+final class WorkspaceCommandHandler
+{
+    /**
+     * @Flow\Inject
+     * @var WorkspaceRepository
+     */
+    protected $workspaceRepository;
+
+    public function handleCreateWorkspace(Command\CreateWorkspace $command)
+    {
+        $workspace = Workspace::create($command->getWorkspaceId());
+        $this->workspaceRepository->save($workspace, ExpectedVersion::NO_STREAM);
+    }
+}

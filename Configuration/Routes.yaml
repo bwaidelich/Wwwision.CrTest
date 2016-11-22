@@ -1,0 +1,14 @@
+-
+  name: 'Node'
+  uriPattern: 'nodes/<NodeSubroutes>'
+  defaults:
+    '@package':    'Wwwision.CrTest'
+    '@subpackage': 'Application'
+    '@controller': 'Node'
+    '@action':     'index'
+    '@format':     'html'
+  httpMethods: [GET]
+  subRoutes:
+    'NodeSubroutes':
+      package: 'Wwwision.CrTest'
+      suffix: 'Node'

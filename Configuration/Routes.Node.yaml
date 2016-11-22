@@ -1,0 +1,21 @@
+-
+  name: 'index'
+  uriPattern: ''
+
+-
+  name: 'create'
+  uriPattern: ''
+  defaults:
+    '@action': 'create'
+  httpMethods: [POST]
+
+-
+  name: 'commands'
+  uriPattern: '{@action}'
+  httpMethods: [POST]
+
+-
+  name: 'merge preview'
+  uriPattern: 'merge/{nodeContextId}/{workspaceId}'
+  defaults:
+    '@action': 'mergePreview'

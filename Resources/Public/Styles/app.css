@@ -1,0 +1,14 @@
+@media (min-width: 1200px) {
+    .container {
+        width: 100%;
+    }
+}
+.newName {
+    background: #d2e6cf;
+}
+.newName.dirty {
+    background: #ffe1cc;
+}
+.newName.f3-form-error {
+    border: 1px solid #ff3440;
+}

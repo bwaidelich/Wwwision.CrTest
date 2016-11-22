@@ -1,0 +1,13 @@
+{
+    "name": "wwwision/crtest",
+    "type": "typo3-flow-package",
+    "description": "Spike to test event-sourced ContentRepository based on the Neos.Cqrs package",
+    "require": {
+        "neos/cqrs": "@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wwwision\\CrTest\\": "Classes"
+        }
+    }
+}

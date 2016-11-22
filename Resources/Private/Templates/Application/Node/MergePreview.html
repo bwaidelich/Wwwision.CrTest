@@ -1,0 +1,27 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+    <h1>Merging Node {node.id}</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{node.workspaceId}</h3>
+            <p>{node.name}</p>
+            <f:form action="publish" class="form-horizontal" objectName="command">
+                <f:form.hidden property="nodeContextId" value="{baseNode.contextId}"/>
+                <f:form.hidden property="sourceWorkspaceId" value="{node.workspaceId}"/>
+                <f:form.hidden property="expectedVersion" value="{baseNode.publishedVersion}"/>
+                <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
+            </f:form>
+        </div>
+        <div class="col-md-4">
+            <h3>{baseNode.workspaceId}</h3>
+            <p>{baseNode.name}</p>
+            <f:form action="discard" class="form-horizontal" objectName="command">
+                <f:form.hidden property="nodeContextId" value="{node.contextId}" />
+                <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
+            </f:form>
+        </div>
+    </div>
+
+</f:section>
