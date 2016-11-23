@@ -102,10 +102,7 @@
         <div class="col-sm-6">
             <f:if condition="{workspace.live}">
                 <f:then>
-                    {node.name}
-                    <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}">
-                        <i class="fa fa-history"></i>
-                    </f:link.action>
+                    <strong>{node.name}</strong>
                 </f:then>
                 <f:else>
                     <f:form action="rename" class="form-horizontal" objectName="command">
