@@ -16,7 +16,7 @@ $(function() {
         $('#moveNodeForm-referenceNodeId option[value="' + $(this).data('node-id') + '"]').hide();
         $('#moveNodeModal').modal('show');
     });
-    $('.newName').on('change', function() {
+    $('.newName, #workspace, #node').on('change', function() {
         $(this).get(0).form.submit();
     });
 

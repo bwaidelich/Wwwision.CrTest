@@ -1,0 +1,89 @@
+{namespace crtest=Wwwision\CrTest\Application\ViewHelpers}
+<f:layout name="Default"/>
+
+<f:section name="Content">
+    <h1>
+        Audit Log
+        <f:if condition="{nodeId}">
+            for node "{nodeId}"
+        </f:if>
+        <f:if condition="{workspaceId}">
+            for workspace "{workspaceId}"
+        </f:if>
+    </h1>
+    <crtest:simpleForm class="form-inline" action="index" method="get">
+        <div class="form-group">
+            <label for="workspace">Workspace</label>
+            <crtest:form.workspaceSelector id="workspace" name="workspaceId" prependOptionLabel="- all -" value="{workspaceId}" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="node">Node</label>
+            <crtest:form.nodeSelector id="node" name="nodeId" prependOptionLabel="- all -" value="{nodeId}" class="form-control" />
+        </div>
+    </crtest:simpleForm>
+    <hr />
+
+    <table class="table table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Node</th>
+            <th>Workspace</th>
+            <th>Action</th>
+            <th>Details</th>
+        </tr>
+        <f:for each="{events}" as="event">
+            <tr>
+                <td>
+                    <time class="timeago" datetime="{event.timestamp -> f:format.date(format: 'Y-m-d\TH:i:sO')}">
+                        {event.timestamp -> f:format.date(format: 'd.m.Y H:i')}
+                    </time>
+                </td>
+                <td><f:link.action action="index" arguments="{nodeId: event.nodeId}">{event.nodeId}</f:link.action></td>
+                <td><f:link.action action="index" arguments="{workspaceId: event.workspaceId}">{event.workspaceId}</f:link.action></td>
+                <td><f:render section="list_{event.eventType}" /></td>
+                <td><f:render section="details_{event.eventType}" arguments="{data: event.data}" /></td>
+            </li>
+        </f:for>
+    </table>
+    <hr />
+    <f:link.action action="index" controller="Node" title="Back to node tree"><i class="fa fa-arrow-left "></i> Back</f:link.action>
+</f:section>
+
+<f:section name="list_Wwwision.CrTest:NodeWasCreated">
+    <i class="fa fa-plus-circle"></i> <small>created</small>
+</f:section>
+<f:section name="list_Wwwision.CrTest:NodeWasRenamed">
+    <i class="fa fa-pencil"></i> <small>renamed</small>
+</f:section>
+<f:section name="list_Wwwision.CrTest:NodeWasPublishedTo">
+    <i class="fa fa-cloud-download"></i> <small>published to</small>
+</f:section>
+<f:section name="list_Wwwision.CrTest:NodeWasPublishedFrom">
+    <i class="fa fa-cloud-upload"></i> <small>published from</small>
+</f:section>
+<f:section name="list_Wwwision.CrTest:NodeWasDiscarded">
+    <i class="fa fa-ban"></i> <small>discarded</small>
+</f:section>
+<f:section name="list_Wwwision.CrTest:NodeWasMaterialized">
+    <i class="fa fa-clone"></i> <small>materialized</small>
+</f:section>
+
+<f:section name="details_Wwwision.CrTest:NodeWasCreated">
+    Name: <strong>{data.name}</strong><br />
+    Position: <strong>{data.position}</strong> node <strong>{data.referenceNodeId}</strong>
+</f:section>
+<f:section name="details_Wwwision.CrTest:NodeWasRenamed">
+    ..to <strong>{data.newName}</strong>
+</f:section>
+<f:section name="details_Wwwision.CrTest:NodeWasPublishedTo">
+    ..from workspace <strong>{data.sourceWorkspaceId}</strong>
+</f:section>
+<f:section name="details_Wwwision.CrTest:NodeWasPublishedFrom">
+    ..to workspace <strong>{data.targetWorkspaceId}</strong>
+</f:section>
+<f:section name="details_Wwwision.CrTest:NodeWasDiscarded">
+
+</f:section>
+<f:section name="details_Wwwision.CrTest:NodeWasMaterialized">
+
+</f:section>

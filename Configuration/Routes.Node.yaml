@@ -19,3 +19,11 @@
   uriPattern: 'merge/{nodeId}/{workspaceId}'
   defaults:
     '@action': 'mergePreview'
+
+-
+  name: 'audit log'
+  uriPattern: 'log'
+  defaults:
+    '@controller': 'NodeLog'
+    '@action': 'index'
+  appendExceedingArguments: true

@@ -9,7 +9,6 @@ use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasCreated;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasDiscarded;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasPublishedTo;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasRenamed;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\SiteNodeWasCreated;
 
 /**
  * @method Node get($identifier)

@@ -9,7 +9,7 @@
             <div class="col-md-4">
                 <h3>
                     {workspaceAndNodes.workspace.id}
-                    <f:comment><![CDATA[<f:link.action action="index" controller="history" arguments="{workspaceId: workspaceAndNodes.workspace.id}"><i class="fa fa-history"></i></f:link.action>]]></f:comment>
+                    <f:link.action action="index" controller="NodeLog" arguments="{workspaceId: workspaceAndNodes.workspace.id}"><i class="fa fa-history"></i></f:link.action>
                 </h3>
                 <table class="table">
                     <f:for each="{workspaceAndNodes.nodes}" as="node">
@@ -103,9 +103,9 @@
             <f:if condition="{workspace.live}">
                 <f:then>
                     {node.name}
-                    <f:comment><![CDATA[<f:link.action action="index" controller="history" arguments="{nodeId: node.id, workspaceId: workspace.id}">
+                    <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}">
                         <i class="fa fa-history"></i>
-                    </f:link.action>]]></f:comment>
+                    </f:link.action>
                 </f:then>
                 <f:else>
                     <f:form action="rename" class="form-horizontal" objectName="command">
@@ -133,7 +133,7 @@
                         <f:form.button class="btn btn-default" title="publish"><i class="fa fa-cloud-upload"></i></f:form.button>
                     </f:form>
                 </f:if>
-                <f:comment><![CDATA[<f:link.action action="index" controller="history" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="history"><i class="fa fa-history"></i></f:link.action>]]></f:comment>
+                <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i></f:link.action>
                 <a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-version="{node.version}" title="move node"><i class="fa fa-arrows"></i></a>
                 <a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i></a>
             </f:if>
