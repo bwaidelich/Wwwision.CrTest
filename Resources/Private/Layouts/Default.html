@@ -12,8 +12,11 @@
 </head>
 <body>
 <div class="container">
-    <f:render partial="FlashMessages"/>
-    <f:render partial="ValidationResults"/>
+    <div class="page-header">
+        <h1><f:render section="Header" optional="true" /></h1>
+        <f:render partial="FlashMessages"/>
+        <f:render partial="ValidationResults"/>
+    </div>
     <f:render section="Content"/>
 </div>
 <script src="../../Public/Scripts/jquery.min.js"></script>

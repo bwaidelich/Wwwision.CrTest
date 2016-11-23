@@ -1,16 +1,17 @@
 {namespace crtest=Wwwision\CrTest\Application\ViewHelpers}
 <f:layout name="Default"/>
 
+<f:section name="Header">
+    Audit Log
+    <f:if condition="{nodeId}">
+        for node "{nodeId}"
+    </f:if>
+    <f:if condition="{workspaceId}">
+        for workspace "{workspaceId}"
+    </f:if>
+</f:section>
+
 <f:section name="Content">
-    <h1>
-        Audit Log
-        <f:if condition="{nodeId}">
-            for node "{nodeId}"
-        </f:if>
-        <f:if condition="{workspaceId}">
-            for workspace "{workspaceId}"
-        </f:if>
-    </h1>
     <crtest:simpleForm class="form-inline" action="index" method="get">
         <div class="form-group">
             <label for="workspace">Workspace</label>

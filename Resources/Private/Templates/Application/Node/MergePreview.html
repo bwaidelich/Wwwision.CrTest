@@ -1,37 +1,30 @@
 <f:layout name="Default" />
 
-<f:section name="Content">
-    <h1>Merging Node {node.id}</h1>
+<f:section name="Header">
+    Merging Node {node.id}
+</f:section>
 
+<f:section name="Content">
     <div class="row">
         <div class="col-md-4">
             <h3>{node.workspaceId}</h3>
-            <dl class="dl-horizontal">
-                <dt>Version</dt>
-                <dd>{node.publishedVersion}</dd>
-                <dt>Name</dt>
-                <dd>{node.name}</dd>
-            </dl>
+
+            <f:render section="NodeDetails" arguments="{node: node}" />
             <f:form action="publish" class="form-horizontal" objectName="command">
                 <f:form.hidden property="nodeId" value="{baseNode.id}"/>
                 <f:form.hidden property="sourceWorkspaceId" value="{node.workspaceId}"/>
                 <f:form.hidden property="targetWorkspaceId" value="{baseNode.workspaceId}"/>
                 <f:form.hidden property="expectedVersion" value="{baseNode.publishedVersion}"/>
-                <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
+                <f:form.button class="btn btn-default"><i class="fa fa fa-cloud-upload"></i> Publish anyways</f:form.button>
             </f:form>
         </div>
         <div class="col-md-4">
             <h3>{baseNode.workspaceId}</h3>
-            <dl class="dl-horizontal">
-                <dt>Version</dt>
-                <dd>{baseNode.publishedVersion}</dd>
-                <dt>Name</dt>
-                <dd>{baseNode.name}</dd>
-            </dl>
+            <f:render section="NodeDetails" arguments="{node: baseNode}" />
             <f:form action="discard" class="form-horizontal" objectName="command">
                 <f:form.hidden property="nodeId" value="{node.id}" />
                 <f:form.hidden property="workspaceId" value="{node.workspaceId}" />
-                <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
+                <f:form.button class="btn btn-default"><i class="fa fa fa-ban"></i> Discard local changes</f:form.button>
             </f:form>
         </div>
 
@@ -45,4 +38,21 @@
     </div>
 
 
+</f:section>
+
+<f:section name="NodeDetails">
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <td>{node.name}</td>
+        </tr>
+        <tr>
+            <th>Version</th>
+            <td>{node.publishedVersion}</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: node.workspaceId}"><i class="fa fa-history"></i> Show audit log</f:link.action></td>
+        </tr>
+    </table>
 </f:section>
