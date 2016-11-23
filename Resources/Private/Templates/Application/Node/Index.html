@@ -117,26 +117,36 @@
             </f:if>
         </div>
         <div class="col-sm-4">
-            <!-- nested condition == HACK -->
-            <f:if condition="{workspace.personal}">
-                <f:if condition="{node.workspaceId} == {workspace.id}">
-                    <f:form action="discard" class="form-horizontal" style="float:left" objectName="command">
-                        <f:form.hidden property="nodeId" value="{node.id}"/>
-                        <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
-                        <f:form.button class="btn btn-default" title="discard changes"><i class="fa fa-ban"></i></f:form.button>
-                    </f:form>
-                    <f:form action="publish" class="form-horizontal" objectName="command">
-                        <f:form.hidden property="nodeId" value="{node.id}"/>
-                        <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
-                        <f:form.hidden property="targetWorkspaceId" value="live"/>
-                        <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
-                        <f:form.button class="btn btn-default" title="publish"><i class="fa fa-cloud-upload"></i></f:form.button>
-                    </f:form>
-                </f:if>
-                <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i></f:link.action>
-                <a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-version="{node.version}" title="move node"><i class="fa fa-arrows"></i></a>
-                <a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i></a>
-            </f:if>
+            <div class="dropdown">
+                <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i> Audit Log</f:link.action></li>
+                    <li><a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-version="{node.version}" title="move node"><i class="fa fa-arrows"></i> Move node</a></li>
+                    <li><a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i> Add new node</a></li>
+                    <!-- nested condition == HACK -->
+                    <f:if condition="{workspace.personal}">
+                        <f:if condition="{node.workspaceId} == {workspace.id}">
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <f:form action="discard" class="form-horizontal" style="float:left" objectName="command">
+                                    <f:form.hidden property="nodeId" value="{node.id}"/>
+                                    <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
+                                    <f:form.button class="btn btn-link" title="discard changes"><i class="fa fa-ban"></i> Discard changes</f:form.button>
+                                </f:form>
+                            </li>
+                            <li>
+                                <f:form action="publish" class="form-horizontal" objectName="command">
+                                    <f:form.hidden property="nodeId" value="{node.id}"/>
+                                    <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
+                                    <f:form.hidden property="targetWorkspaceId" value="live"/>
+                                    <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
+                                    <f:form.button class="btn btn-link" title="publish"><i class="fa fa-cloud-upload"></i> Publish changes</f:form.button>
+                                </f:form>
+                            </li>
+                        </f:if>
+                    </f:if>
+                </ul>
+            </div>
         </div>
     </div>
 </f:section>
