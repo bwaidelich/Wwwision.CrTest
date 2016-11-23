@@ -6,19 +6,31 @@
     <div class="row">
         <div class="col-md-4">
             <h3>{node.workspaceId}</h3>
-            <p>{node.name}</p>
+            <dl class="dl-horizontal">
+                <dt>Version</dt>
+                <dd>{node.publishedVersion}</dd>
+                <dt>Name</dt>
+                <dd>{node.name}</dd>
+            </dl>
             <f:form action="publish" class="form-horizontal" objectName="command">
-                <f:form.hidden property="nodeContextId" value="{baseNode.contextId}"/>
+                <f:form.hidden property="nodeId" value="{baseNode.id}"/>
                 <f:form.hidden property="sourceWorkspaceId" value="{node.workspaceId}"/>
+                <f:form.hidden property="targetWorkspaceId" value="{baseNode.workspaceId}"/>
                 <f:form.hidden property="expectedVersion" value="{baseNode.publishedVersion}"/>
                 <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
             </f:form>
         </div>
         <div class="col-md-4">
             <h3>{baseNode.workspaceId}</h3>
-            <p>{baseNode.name}</p>
+            <dl class="dl-horizontal">
+                <dt>Version</dt>
+                <dd>{baseNode.publishedVersion}</dd>
+                <dt>Name</dt>
+                <dd>{baseNode.name}</dd>
+            </dl>
             <f:form action="discard" class="form-horizontal" objectName="command">
-                <f:form.hidden property="nodeContextId" value="{node.contextId}" />
+                <f:form.hidden property="nodeId" value="{node.id}" />
+                <f:form.hidden property="workspaceId" value="{node.workspaceId}" />
                 <f:form.button class="btn btn-default"><i class="fa fa-code-fork"></i></f:form.button>
             </f:form>
         </div>

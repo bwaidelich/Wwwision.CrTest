@@ -47,4 +47,8 @@ final class CreateSiteNode
         return $this->name;
     }
 
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
+    }
 }

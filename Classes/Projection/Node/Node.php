@@ -11,18 +11,15 @@ use TYPO3\Flow\Annotations as Flow;
  */
 class Node
 {
-    /**
-     * @ORM\Id
-     * @var string
-     */
-    protected $contextId;
 
     /**
+     * @ORM\Id
      * @var string
      */
     protected $id;
 
     /**
+     * @ORM\Id
      * @var string
      */
     protected $workspaceId;
@@ -37,16 +34,11 @@ class Node
      */
     protected $publishedVersion = ExpectedVersion::NO_STREAM;
 
-    public function __construct(string $contextId, string $name)
+    public function __construct(string $id, string $workspaceId, string $name)
     {
-        $this->contextId = $contextId;
-        list($this->id, $this->workspaceId) = explode('@', $this->contextId);
+        $this->id = $id;
+        $this->workspaceId = $workspaceId;
         $this->name = $name;
-    }
-
-    public function getContextId(): string
-    {
-        return $this->contextId;
     }
 
     public function getId(): string

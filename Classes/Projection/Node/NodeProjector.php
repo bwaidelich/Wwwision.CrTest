@@ -16,27 +16,23 @@ use Wwwision\CrTest\Domain\Aggregate\Node\Event\SiteNodeWasCreated;
  */
 class NodeProjector extends AbstractDoctrineProjector
 {
-    public function whenSiteNodeWasCreated(SiteNodeWasCreated $event)
-    {
-        $nodeContextId = $event->getNodeId() . '@' . $event->getWorkspaceId();
-        $node = new Node($nodeContextId, $event->getName());
-        // site nodes are (currently) published implicitly
-        $node->_setPublishedVersion(0);
-        $this->add($node);
-    }
 
     public function whenNodeWasCreated(NodeWasCreated $event)
     {
-        $nodeContextId = $event->getNodeId() . '@' . $event->getWorkspaceId();
-        $this->add(new Node($nodeContextId, $event->getName()));
+        $newNode = new Node($event->getNodeId(), $event->getWorkspaceId(), $event->getName());
+        // if the new node is created in live workspace, set its published version to 0 (default = -1)
+        if ($event->getWorkspaceId() === 'live') {
+            $newNode->_setPublishedVersion(0);
+        }
+        $this->add($newNode);
     }
 
     public function whenNodeWasPublishedTo(NodeWasPublishedTo $event, RawEvent $storedEvent)
     {
-        $sourceNode = $this->getNodeFromDifferentWorkspace($event->getNodeContextId(), $event->getSourceWorkspaceId());
-        $targetNode = $this->get($event->getNodeContextId());
+        $sourceNode = $this->getNodeFromDifferentWorkspace($event->getNodeId(), $event->getSourceWorkspaceId());
+        $targetNode = $this->get(['id' => $event->getNodeId(), 'workspaceId' => $event->getWorkspaceId()]);
         if ($targetNode === null) {
-            $targetNode = new Node($event->getNodeContextId(), $sourceNode->getName());
+            $targetNode = new Node($event->getNodeId(), $event->getWorkspaceId(), $sourceNode->getName());
             $targetNode->_setPublishedVersion($storedEvent->getVersion());
             $this->add($targetNode);
         } else {
@@ -49,12 +45,11 @@ class NodeProjector extends AbstractDoctrineProjector
 
     public function whenNodeWasRenamed(NodeWasRenamed $event)
     {
-        $node = $this->get($event->getNodeContextId());
+        $node = $this->get(['id' => $event->getNodeId(), 'workspaceId' => $event->getWorkspaceId()]);
         if ($node === null) {
-            // possible race condition? can we instead fetch the published version from the write side?
-            $baseNode = $this->getNodeFromDifferentWorkspace($event->getNodeContextId(), 'live');
+            $baseNode = $this->getNodeFromDifferentWorkspace($event->getNodeId(), 'live');
             $publishedVersion = $baseNode !== null ? $baseNode->getPublishedVersion() : ExpectedVersion::NO_STREAM;
-            $node = new Node($event->getNodeContextId(), $event->getNewName());
+            $node = new Node($event->getNodeId(), $event->getWorkspaceId(), $event->getNewName());
             $node->_setPublishedVersion($publishedVersion);
             $this->add($node);
         } else {
@@ -65,14 +60,19 @@ class NodeProjector extends AbstractDoctrineProjector
 
     public function whenNodeWasDiscarded(NodeWasDiscarded $event)
     {
-        $node = $this->get($event->getNodeContextId());
+        $node = $this->get(['id' => $event->getNodeId(), 'workspaceId' => $event->getWorkspaceId()]);
         $this->remove($node);
     }
 
-    private function getNodeFromDifferentWorkspace(string $nodeContextId, string $workspaceId)
+    /**
+     * HACK possible race condition? can we instead fetch the published version from the write side?
+     *
+     * @param string $nodeId
+     * @param string $workspaceId
+     * @return Node
+     */
+    private function getNodeFromDifferentWorkspace(string $nodeId, string $workspaceId)
     {
-        // HACK
-        list($nodeId) = explode('@', $nodeContextId);
-        return $this->get($nodeId . '@' . $workspaceId);
+        return $this->get(['id' => $nodeId, 'workspaceId' => $workspaceId]);
     }
 }

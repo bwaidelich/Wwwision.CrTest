@@ -71,7 +71,7 @@ class NodeController extends ActionController
     public function renameAction(RenameNode $command)
     {
         $this->nodeCommandHandler->handleRenameNode($command);
-        $this->addFlashMessage('Renamed node "%s" to "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeContextId(), $command->getNewName()]);
+        $this->addFlashMessage('Renamed node "%s@%s" to "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getWorkspaceId(), $command->getNewName()]);
         $this->redirect('index');
     }
 
@@ -95,25 +95,24 @@ class NodeController extends ActionController
         try {
             $this->nodeCommandHandler->handlePublishNode($command);
         } catch (ConcurrencyException $exception) {
-            $this->redirect('mergePreview', null, null, ['nodeContextId' => $command->getNodeContextId(), 'workspaceId' => $command->getSourceWorkspaceId()]);
+            $this->redirect('mergePreview', null, null, ['nodeId' => $command->getNodeId(), 'workspaceId' => $command->getSourceWorkspaceId()]);
         }
-        $this->addFlashMessage('Published node "%s" from workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeContextId(), $command->getSourceWorkspaceId()]);
+        $this->addFlashMessage('Published node "%s@%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getSourceWorkspaceId(), $command->getTargetWorkspaceId()]);
         $this->redirect('index');
     }
 
 
 
     /**
-     * @param string $nodeContextId
+     * @param string $nodeId
      * @param string $workspaceId
      * @return void
      */
-    public function mergePreviewAction(string $nodeContextId, string $workspaceId)
+    public function mergePreviewAction(string $nodeId, string $workspaceId)
     {
-        list($nodeId) = explode('@', $nodeContextId);
         $this->view->assignMultiple([
-            'baseNode' => $this->nodeFinder->findOneByContextId($nodeContextId),
-            'node' => $this->nodeFinder->findOneByContextId($nodeId . '@' . $workspaceId),
+            'baseNode' => $this->nodeFinder->findOneByIdAndWorkspaceId($nodeId, 'live'),
+            'node' => $this->nodeFinder->findOneByIdAndWorkspaceId($nodeId, $workspaceId),
         ]);
     }
 
@@ -123,7 +122,7 @@ class NodeController extends ActionController
     public function discardAction(DiscardNode $command)
     {
         $this->nodeCommandHandler->handleDiscardNode($command);
-        $this->addFlashMessage('Discarded local changes of node "%s"', 'Notice', Message::SEVERITY_NOTICE, [$command->getNodeContextId()]);
+        $this->addFlashMessage('Discarded local changes of node "%s@%s"', 'Notice', Message::SEVERITY_NOTICE, [$command->getNodeId(), $command->getWorkspaceId()]);
         $this->redirect('index');
     }
 

@@ -39,7 +39,7 @@ final class NodeCommandHandler
         try {
             $node = $this->nodeRepository->get($command->getNodeContextId());
         } catch (EventStreamNotFoundException $exception) {
-            $node = Node::materialize($command->getNodeContextId());
+            $node = Node::materialize($command->getNodeId(), $command->getWorkspaceId());
         }
         $node->rename($command->getNewName());
         $this->nodeRepository->save($node);
@@ -48,17 +48,16 @@ final class NodeCommandHandler
     public function handlePublishNode(PublishNode $command)
     {
         try {
-            $targetNode = $this->nodeRepository->get($command->getNodeContextId());
-            $targetNode->publishTo($command->getSourceWorkspaceId());
+            $targetNode = $this->nodeRepository->get($command->getTargetNodeContextId());
         } catch (EventStreamNotFoundException $exception) {
-            $targetNode = Node::publish($command->getNodeContextId(), $command->getSourceWorkspaceId());
+            $targetNode = Node::materialize($command->getNodeId(), $command->getTargetWorkspaceId());
         }
-        $this->nodeRepository->save($targetNode, $command->getExpectedVersion());
+        $targetNode->publishTo($command->getSourceWorkspaceId());
 
-        // HACK
-        list($nodeId, $targetWorkspaceId) = explode('@', $command->getNodeContextId());
-        $sourceNode = $this->nodeRepository->get($nodeId . '@' . $command->getSourceWorkspaceId());
-        $sourceNode->publishFrom($targetWorkspaceId);
+        $sourceNode = $this->nodeRepository->get($command->getSourceNodeContextId());
+        $sourceNode->publishFrom($command->getTargetWorkspaceId());
+
+        $this->nodeRepository->save($targetNode, $command->getExpectedVersion());
         $this->nodeRepository->save($sourceNode);
     }
 

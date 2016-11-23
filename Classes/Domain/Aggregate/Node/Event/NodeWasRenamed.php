@@ -8,7 +8,12 @@ final class NodeWasRenamed implements EventInterface
     /**
      * @var string
      */
-    private $nodeContextId;
+    private $nodeId;
+
+    /**
+     * @var string
+     */
+    private $workspaceId;
 
     /**
      * @var string
@@ -16,21 +21,26 @@ final class NodeWasRenamed implements EventInterface
     private $newName;
 
 
-    public function __construct(string $nodeContextId, string $newName)
+    public function __construct(string $nodeId, string $workspaceId, string $newName)
     {
-        $this->nodeContextId = $nodeContextId;
+        $this->nodeId = $nodeId;
+        $this->workspaceId = $workspaceId;
         $this->newName = $newName;
     }
 
-    public function getNodeContextId(): string
+    public function getNodeId(): string
     {
-        return $this->nodeContextId;
+        return $this->nodeId;
+    }
+
+    public function getWorkspaceId(): string
+    {
+        return $this->workspaceId;
     }
 
     public function getNewName(): string
     {
         return $this->newName;
     }
-
 
 }

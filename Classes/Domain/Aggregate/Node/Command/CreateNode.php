@@ -6,10 +6,6 @@ use TYPO3\Flow\Utility\Algorithms;
 
 final class CreateNode
 {
-    const POSITION_BEFORE = 'before';
-    const POSITION_INTO = 'into';
-    const POSITION_AFTER = 'after';
-
     /**
      * @Flow\Validate(type="NotEmpty")
      * @var string
@@ -32,7 +28,7 @@ final class CreateNode
     /**
      * @Flow\Validate(type="NotEmpty")
      * @Flow\Validate(type="RegularExpression", options={"regularExpression": "/^(before|into|after)$/"})
-     * @var string one of the POSITION_* constants
+     * @var string one of the Node::POSITION_* constants
      */
     private $position;
 
@@ -74,6 +70,11 @@ final class CreateNode
     public function getReferenceNodeId(): string
     {
         return $this->referenceNodeId;
+    }
+
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 
 }

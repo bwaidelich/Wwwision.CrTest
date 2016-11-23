@@ -11,15 +11,19 @@ class NodeFinder extends AbstractDoctrineFinder
 {
 
     /**
-     * @param string $contextId
+     * @param string $nodeId
+     * @param string $workspaceId
      * @return Node
      */
-    public function findOneByContextId(string $contextId)
+    public function findOneByIdAndWorkspaceId(string $nodeId, string $workspaceId)
     {
         $query = $this->createQuery();
         /** @var Node $node */
         $node = $query->matching(
-            $query->equals('contextId', $contextId)
+            $query->logicalAnd(
+                $query->equals('id', $nodeId),
+                $query->equals('workspaceId', $workspaceId)
+            )
         )
             ->execute()
             ->getFirst();

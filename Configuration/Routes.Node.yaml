@@ -16,6 +16,6 @@
 
 -
   name: 'merge preview'
-  uriPattern: 'merge/{nodeContextId}/{workspaceId}'
+  uriPattern: 'merge/{nodeId}/{workspaceId}'
   defaults:
     '@action': 'mergePreview'

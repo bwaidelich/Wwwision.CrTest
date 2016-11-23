@@ -5,9 +5,6 @@ use TYPO3\Flow\Annotations as Flow;
 
 final class MoveNode
 {
-    const POSITION_BEFORE = 'before';
-    const POSITION_INTO = 'into';
-    const POSITION_AFTER = 'after';
 
     /**
      * @Flow\Validate(type="NotEmpty")
@@ -24,7 +21,7 @@ final class MoveNode
     /**
      * @Flow\Validate(type="NotEmpty")
      * @Flow\Validate(type="RegularExpression", options={"regularExpression": "/^(before|into|after)$/"})
-     * @var string one of the POSITION_* constants
+     * @var string one of the Node::POSITION_* constants
      */
     private $position;
 
@@ -60,5 +57,10 @@ final class MoveNode
     public function getReferenceNodeId(): string
     {
         return $this->referenceNodeId;
+    }
+
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 }

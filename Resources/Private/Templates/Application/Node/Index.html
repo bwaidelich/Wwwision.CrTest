@@ -109,7 +109,8 @@
                 </f:then>
                 <f:else>
                     <f:form action="rename" class="form-horizontal" objectName="command">
-                        <f:form.hidden property="nodeContextId" value="{node.id}@{workspace.id}" />
+                        <f:form.hidden property="nodeId" value="{node.id}" />
+                        <f:form.hidden property="workspaceId" value="{workspace.id}" />
                         <f:form.textfield id="node-{node.id}" class="form-control newName{f:if(condition: '{node.workspaceId} == {workspace.id}', then: ' dirty')}" property="newName" value="{node.name}"/>
                     </f:form>
                 </f:else>
@@ -120,12 +121,14 @@
             <f:if condition="{workspace.personal}">
                 <f:if condition="{node.workspaceId} == {workspace.id}">
                     <f:form action="discard" class="form-horizontal" style="float:left" objectName="command">
-                        <f:form.hidden property="nodeContextId" value="{node.contextId}"/>
+                        <f:form.hidden property="nodeId" value="{node.id}"/>
+                        <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
                         <f:form.button class="btn btn-default" title="discard changes"><i class="fa fa-ban"></i></f:form.button>
                     </f:form>
                     <f:form action="publish" class="form-horizontal" objectName="command">
-                        <f:form.hidden property="nodeContextId" value="{node.id}@live"/>
+                        <f:form.hidden property="nodeId" value="{node.id}"/>
                         <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
+                        <f:form.hidden property="targetWorkspaceId" value="live"/>
                         <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
                         <f:form.button class="btn btn-default" title="publish"><i class="fa fa-cloud-upload"></i></f:form.button>
                     </f:form>

@@ -9,7 +9,13 @@ final class RenameNode
      * @Flow\Validate(type="NotEmpty")
      * @var string
      */
-    private $nodeContextId;
+    private $nodeId;
+
+    /**
+     * @Flow\Validate(type="NotEmpty")
+     * @var string
+     */
+    private $workspaceId;
 
     /**
      * @Flow\Validate(type="NotEmpty")
@@ -18,20 +24,31 @@ final class RenameNode
      */
     private $newName;
 
-    public function __construct(string $nodeContextId, string $newName)
+    public function __construct(string $nodeId, string $workspaceId, string $newName)
     {
-        $this->nodeContextId = $nodeContextId;
+        $this->nodeId = $nodeId;
+        $this->workspaceId = $workspaceId;
         $this->newName = $newName;
     }
 
-    public function getNodeContextId(): string
+    public function getNodeId(): string
     {
-        return $this->nodeContextId;
+        return $this->nodeId;
+    }
+
+    public function getWorkspaceId(): string
+    {
+        return $this->workspaceId;
     }
 
     public function getNewName(): string
     {
         return $this->newName;
+    }
+
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 
 }

@@ -9,16 +9,33 @@ final class DiscardNode
      * @Flow\Validate(type="NotEmpty")
      * @var string
      */
-    private $nodeContextId;
+    private $nodeId;
 
-    public function __construct(string $nodeContextId)
+    /**
+     * @Flow\Validate(type="NotEmpty")
+     * @var string
+     */
+    private $workspaceId;
+
+    public function __construct(string $nodeId, string $workspaceId)
     {
-        $this->nodeContextId = $nodeContextId;
+        $this->nodeId = $nodeId;
+        $this->workspaceId = $workspaceId;
+    }
+
+    public function getNodeId(): string
+    {
+        return $this->nodeId;
+    }
+
+    public function getWorkspaceId(): string
+    {
+        return $this->workspaceId;
     }
 
     public function getNodeContextId(): string
     {
-        return $this->nodeContextId;
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 
 }
