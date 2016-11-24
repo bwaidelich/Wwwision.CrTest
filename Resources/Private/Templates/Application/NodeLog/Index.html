@@ -43,7 +43,7 @@
                 <td><f:link.action action="index" arguments="{workspaceId: event.workspaceId}">{event.workspaceId}</f:link.action></td>
                 <td><f:render section="list_{event.eventType}" /></td>
                 <td><f:render section="details_{event.eventType}" arguments="{data: event.data}" /></td>
-            </li>
+            </tr>
         </f:for>
     </table>
     <hr />
