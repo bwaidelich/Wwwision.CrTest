@@ -10,15 +10,16 @@
   httpMethods: [POST]
 
 -
-  name: 'commands'
-  uriPattern: '{@action}'
+  name: 'single node commands'
+  uriPattern: '{nodeId}/{@action}'
   httpMethods: [POST]
 
 -
   name: 'merge preview'
-  uriPattern: 'merge/{nodeId}/{workspaceId}'
+  uriPattern: '{nodeId}/merge'
   defaults:
     '@action': 'mergePreview'
+  appendExceedingArguments: true
 
 -
   name: 'audit log'

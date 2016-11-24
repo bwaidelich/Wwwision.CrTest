@@ -9,7 +9,19 @@
             <div class="col-md-4">
                 <h3>
                     {workspaceAndNodes.workspace.id}
-                    <f:link.action action="index" controller="NodeLog" arguments="{workspaceId: workspaceAndNodes.workspace.id}"><i class="fa fa-history"></i></f:link.action>
+                    <f:if condition="{workspaceAndNodes.workspace.personal}">
+                        <f:then>
+                            <div class="dropdown pull-right">
+                                <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><f:link.action action="index" controller="NodeLog" arguments="{workspaceId: workspaceAndNodes.workspace.id}"><i class="fa fa-history"></i> Workspace audit log</f:link.action></li>
+                                </ul>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <f:link.action action="index" controller="NodeLog" arguments="{workspaceId: workspaceAndNodes.workspace.id}" title="workspace audit log"><i class="fa fa-history"></i></f:link.action>
+                        </f:else>
+                    </f:if>
                 </h3>
                 <table class="table">
                     <f:for each="{workspaceAndNodes.nodes}" as="node">
@@ -68,9 +80,9 @@
     <div class="modal fade" id="moveNodeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <f:form action="move" class="form-horizontal" objectName="moveCommand">
+                <f:form actionUri="#" id="moveNodeForm-form" class="form-horizontal" objectName="command">
                     <f:form.hidden id="moveNodeForm-workspaceId" property="workspaceId" />
-                    <f:form.hidden id="moveNodeForm-nodeId" name="nodeId" />
+                    <f:form.hidden id="moveNodeForm-nodeId" property="nodeId" />
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Move node within workspace</h4>
@@ -82,7 +94,7 @@
                                 <f:form.select id="moveNodeForm-position" property="position" class="form-control" options="{before: 'BEFORE', into: 'INTO', after: 'AFTER'}" />
                             </div>
                            <div class="col-sm-3">
-                               <crtest:form.nodeSelector prependOptionLabel="- select -" excludeId="{node.id}" id="moveNodeForm-referenceNodeId" property="referenceNodeId" class="form-control" />
+                               <crtest:form.nodeSelector excludeId="{node.id}" id="moveNodeForm-referenceNodeId" property="referenceNodeId" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -105,7 +117,7 @@
                     <strong>{node.name}</strong>
                 </f:then>
                 <f:else>
-                    <f:form action="rename" class="form-horizontal" objectName="command">
+                    <f:form action="rename" class="form-horizontal" objectName="command" arguments="{nodeId: node.id}">
                         <f:form.hidden property="nodeId" value="{node.id}" />
                         <f:form.hidden property="workspaceId" value="{workspace.id}" />
                         <f:form.textfield id="node-{node.id}" class="form-control newName{f:if(condition: '{node.workspaceId} == {workspace.id}', then: ' dirty')}" property="newName" value="{node.name}"/>
@@ -114,36 +126,40 @@
             </f:if>
         </div>
         <div class="col-sm-4">
-            <div class="dropdown">
-                <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i> Audit Log</f:link.action></li>
-                    <li><a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-version="{node.version}" title="move node"><i class="fa fa-arrows"></i> Move node</a></li>
-                    <li><a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i> Add new node</a></li>
-                    <!-- nested condition == HACK -->
-                    <f:if condition="{workspace.personal}">
-                        <f:if condition="{node.workspaceId} == {workspace.id}">
-                            <li role="separator" class="divider"></li>
-                            <li>
-                                <f:form action="discard" class="form-horizontal" style="float:left" objectName="command">
-                                    <f:form.hidden property="nodeId" value="{node.id}"/>
-                                    <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
-                                    <f:form.button class="btn btn-link" title="discard changes"><i class="fa fa-ban"></i> Discard changes</f:form.button>
-                                </f:form>
-                            </li>
-                            <li>
-                                <f:form action="publish" class="form-horizontal" objectName="command">
-                                    <f:form.hidden property="nodeId" value="{node.id}"/>
-                                    <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
-                                    <f:form.hidden property="targetWorkspaceId" value="live"/>
-                                    <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
-                                    <f:form.button class="btn btn-link" title="publish"><i class="fa fa-cloud-upload"></i> Publish changes</f:form.button>
-                                </f:form>
-                            </li>
-                        </f:if>
-                    </f:if>
-                </ul>
-            </div>
+            <f:if condition="{workspace.personal}">
+                <f:then>
+                    <div class="dropdown">
+                        <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i> Audit Log</f:link.action></li>
+                            <li><a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-uri="{f:uri.action(action: 'move', arguments: '{nodeId: node.id}')}" title="move node"><i class="fa fa-arrows"></i> Move node</a></li>
+                            <li><a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i> Add new node</a></li>
+                            <f:if condition="{node.workspaceId} == {workspace.id}">
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <f:form action="discard" class="form-horizontal" style="float:left" objectName="command" arguments="{nodeId: node.id}">
+                                        <f:form.hidden property="nodeId" value="{node.id}"/>
+                                        <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
+                                        <f:form.button class="btn btn-link" title="discard changes"><i class="fa fa-ban"></i> Discard changes</f:form.button>
+                                    </f:form>
+                                </li>
+                                <li>
+                                    <f:form action="publish" class="form-horizontal" objectName="command" arguments="{nodeId: node.id}">
+                                        <f:form.hidden property="nodeId" value="{node.id}"/>
+                                        <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
+                                        <f:form.hidden property="targetWorkspaceId" value="live"/>
+                                        <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
+                                        <f:form.button class="btn btn-link" title="publish"><i class="fa fa-cloud-upload"></i> Publish changes</f:form.button>
+                                    </f:form>
+                                </li>
+                            </f:if>
+                        </ul>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i></f:link.action>
+                </f:else>
+            </f:if>
         </div>
     </div>
 </f:section>

@@ -10,7 +10,7 @@
             <h3>{node.workspaceId}</h3>
 
             <f:render section="NodeDetails" arguments="{node: node}" />
-            <f:form action="publish" class="form-horizontal" objectName="command">
+            <f:form action="publish" class="form-horizontal" objectName="command" arguments="{nodeId: node.id}">
                 <f:form.hidden property="nodeId" value="{baseNode.id}"/>
                 <f:form.hidden property="sourceWorkspaceId" value="{node.workspaceId}"/>
                 <f:form.hidden property="targetWorkspaceId" value="{baseNode.workspaceId}"/>
@@ -21,7 +21,7 @@
         <div class="col-md-4">
             <h3>{baseNode.workspaceId}</h3>
             <f:render section="NodeDetails" arguments="{node: baseNode}" />
-            <f:form action="discard" class="form-horizontal" objectName="command">
+            <f:form action="discard" class="form-horizontal" objectName="command" arguments="{nodeId: node.id}">
                 <f:form.hidden property="nodeId" value="{node.id}" />
                 <f:form.hidden property="workspaceId" value="{node.workspaceId}" />
                 <f:form.button class="btn btn-default"><i class="fa fa fa-ban"></i> Discard local changes</f:form.button>

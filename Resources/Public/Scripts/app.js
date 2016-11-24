@@ -10,6 +10,7 @@ $(function() {
     });
     $('.node-move-link').on('click', function(event) {
         event.preventDefault();
+        $('#moveNodeForm-form').attr('action', $(this).data('node-uri'));
         $('#moveNodeForm-workspaceId').val($(this).data('workspace-id'));
         $('#moveNodeForm-nodeId').val($(this).data('node-id'));
         $('#moveNodeForm-referenceNodeId option').show();
