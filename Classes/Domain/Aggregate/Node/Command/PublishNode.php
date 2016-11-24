@@ -1,6 +1,7 @@
 <?php
 namespace Wwwision\CrTest\Domain\Aggregate\Node\Command;
 
+use Neos\Cqrs\EventStore\ExpectedVersion;
 use TYPO3\Flow\Annotations as Flow;
 
 final class PublishNode
@@ -28,7 +29,7 @@ final class PublishNode
      */
     private $expectedVersion;
 
-    public function __construct(string $nodeId, string $sourceWorkspaceId, string $targetWorkspaceId, int $expectedVersion)
+    public function __construct(string $nodeId, string $sourceWorkspaceId, string $targetWorkspaceId, int $expectedVersion = ExpectedVersion::ANY)
     {
         $this->nodeId = $nodeId;
         $this->sourceWorkspaceId = $sourceWorkspaceId;

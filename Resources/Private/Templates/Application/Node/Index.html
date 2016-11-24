@@ -140,7 +140,7 @@
                                     <f:form action="discard" class="form-horizontal" style="float:left" objectName="command" arguments="{nodeId: node.id}">
                                         <f:form.hidden property="nodeId" value="{node.id}"/>
                                         <f:form.hidden property="workspaceId" value="{node.workspaceId}"/>
-                                        <f:form.button class="btn btn-link" title="discard changes"><i class="fa fa-ban"></i> Discard changes</f:form.button>
+                                        <f:form.button class="btn btn-link" title="Discard changes"><i class="fa fa-ban"></i> Discard changes</f:form.button>
                                     </f:form>
                                 </li>
                                 <li>
@@ -149,7 +149,15 @@
                                         <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
                                         <f:form.hidden property="targetWorkspaceId" value="live"/>
                                         <f:form.hidden property="expectedVersion" value="{node.publishedVersion}"/>
-                                        <f:form.button class="btn btn-link" title="publish"><i class="fa fa-cloud-upload"></i> Publish changes</f:form.button>
+                                        <f:form.button class="btn btn-link" title="Publish changes"><i class="fa fa-cloud-upload"></i> Publish changes</f:form.button>
+                                    </f:form>
+                                </li>
+                                <li>
+                                    <f:form action="publish" class="form-horizontal" objectName="command" arguments="{nodeId: node.id}">
+                                        <f:form.hidden property="nodeId" value="{node.id}"/>
+                                        <f:form.hidden property="sourceWorkspaceId" value="{workspace.id}"/>
+                                        <f:form.hidden property="targetWorkspaceId" value="live"/>
+                                        <f:form.button class="btn btn-link " title="Publish changes (ignoring conflicts)"><i class="fa fa-cloud-upload text-danger"></i> Force-Publish changes</f:form.button>
                                     </f:form>
                                 </li>
                             </f:if>
