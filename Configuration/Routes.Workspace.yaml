@@ -1,0 +1,11 @@
+-
+  name: 'publish preview'
+  uriPattern: '{workspaceId}/publish'
+  defaults:
+    '@action': 'publishPreview'
+  appendExceedingArguments: true
+
+-
+  name: 'single workspace commands'
+  uriPattern: '{workspaceId}/{@action}'
+  httpMethods: [POST]

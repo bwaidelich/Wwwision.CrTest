@@ -1,0 +1,36 @@
+{namespace crtest=Wwwision\CrTest\Application\ViewHelpers}
+<f:layout name="Default"/>
+
+<f:section name="Header">Publish workspace "{workspaceId}"</f:section>
+
+<f:section name="Content">
+    <div class="row">
+        <div class="col-md-12">
+            <f:form action="publishPartially" class="form-horizontal" objectName="command" arguments="{workspaceId: workspaceId}">
+                <f:form.hidden property="workspaceId" value="{workspaceId}" />
+                <f:form.hidden property="targetWorkspaceId" value="live" />
+                <table class="table table-striped">
+                    <tr>
+                        <th>Node</th>
+                        <th>Include?</th>
+                    </tr>
+                    <f:for each="{nodes}" as="node" iteration="iteration">
+                        <tr>
+                            <td>
+                                {node.name}
+                            </td>
+                            <td>
+                                <f:form.hidden property="nodes.{iteration.index}.id" value="{node.id}" />
+                                <f:form.hidden property="nodes.{iteration.index}.publishedVersion" value="{node.publishedVersion}" />
+                                <f:form.checkbox property="nodes.{iteration.index}.include" value="1" checked="true" />
+                            </td>
+                        </tr>
+                    </f:for>
+                </table>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-cloud-upload"></i> Publish nodes</button>
+            </f:form>
+            <hr />
+            <f:link.action action="index" controller="Node" title="Back to node tree"><i class="fa fa-arrow-left "></i> Back</f:link.action>
+        </div>
+    </div>
+</f:section>

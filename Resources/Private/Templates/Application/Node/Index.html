@@ -15,6 +15,21 @@
                                 <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><f:link.action action="index" controller="NodeLog" arguments="{workspaceId: workspaceAndNodes.workspace.id}"><i class="fa fa-history"></i> Workspace audit log</f:link.action></li>
+                                    <li><f:link.action action="publishPreview" controller="Workspace" arguments="{workspaceId: workspaceAndNodes.workspace.id, targetWorkspaceId: 'live'}"><i class="fa fa-cloud-upload"></i> Publish workspace changes...</f:link.action></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <f:form action="publish" controller="Workspace" class="form-horizontal" objectName="command" arguments="{workspaceId: workspaceAndNodes.workspace.id}">
+                                            <f:form.hidden property="workspaceId" value="{workspaceAndNodes.workspace.id}" />
+                                            <f:form.hidden property="targetWorkspaceId" value="live" />
+                                            <f:form.button class="btn btn-link " title="Publish workspace changes (ignoring conflicts)"><i class="fa fa-cloud-upload text-danger"></i> Force-Publish workspace changes</f:form.button>
+                                        </f:form>
+                                    </li>
+                                    <li>
+                                        <f:form action="discard" controller="Workspace" class="form-horizontal" objectName="command" arguments="{workspaceId: workspaceAndNodes.workspace.id}">
+                                            <f:form.hidden property="workspaceId" value="{workspaceAndNodes.workspace.id}" />
+                                            <f:form.button class="btn btn-link " title="Discard workspace changes"><i class="fa fa-ban text-danger"></i> Discard workspace changes</f:form.button>
+                                        </f:form>
+                                    </li>
                                 </ul>
                             </div>
                         </f:then>

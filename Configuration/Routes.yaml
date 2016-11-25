@@ -12,3 +12,18 @@
     'NodeSubroutes':
       package: 'Wwwision.CrTest'
       suffix: 'Node'
+
+-
+  name: 'Workspace'
+  uriPattern: 'workspaces/<WorkspaceSubroutes>'
+  defaults:
+    '@package':    'Wwwision.CrTest'
+    '@subpackage': 'Application'
+    '@controller': 'Workspace'
+    '@action':     'index'
+    '@format':     'html'
+  httpMethods: [GET]
+  subRoutes:
+    'WorkspaceSubroutes':
+      package: 'Wwwision.CrTest'
+      suffix: 'Workspace'
