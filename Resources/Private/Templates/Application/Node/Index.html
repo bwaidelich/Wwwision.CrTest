@@ -1,7 +1,7 @@
 {namespace crtest=Wwwision\CrTest\Application\ViewHelpers}
 <f:layout name="Default"/>
 
-<f:section name="Header">CR/ES Test</f:section>
+<f:section name="Header">Nodes</f:section>
 
 <f:section name="Content">
     <div class="row">
@@ -131,9 +131,9 @@
                     <div class="dropdown">
                         <a data-target="#" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i> Audit Log</f:link.action></li>
-                            <li><a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-uri="{f:uri.action(action: 'move', arguments: '{nodeId: node.id}')}" title="move node"><i class="fa fa-arrows"></i> Move node</a></li>
-                            <li><a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="create node"><i class="fa fa-plus-circle"></i> Add new node</a></li>
+                            <li><f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="Node audit log"><i class="fa fa-history"></i> Audit Log</f:link.action></li>
+                            <li><a href="#" class="node-move-link" data-workspace-id="{workspace.id}" data-node-id="{node.id}" data-node-uri="{f:uri.action(action: 'move', arguments: '{nodeId: node.id}')}" title="Move node"><i class="fa fa-arrows"></i> Move node...</a></li>
+                            <li><a href="#" class="node-create-link" data-workspace-id="{workspace.id}" data-reference-node-id="{node.id}" title="Create new node"><i class="fa fa-plus-circle"></i> Add node...</a></li>
                             <f:if condition="{node.workspaceId} == {workspace.id}">
                                 <li role="separator" class="divider"></li>
                                 <li>
@@ -165,7 +165,7 @@
                     </div>
                 </f:then>
                 <f:else>
-                    <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="audit log"><i class="fa fa-history"></i></f:link.action>
+                    <f:link.action action="index" controller="NodeLog" arguments="{nodeId: node.id, workspaceId: workspace.id}" title="Node audit log"><i class="fa fa-history"></i></f:link.action>
                 </f:else>
             </f:if>
         </div>
