@@ -1,22 +1,25 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Workspace\Command;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Event;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Cqrs\Event\EventInterface;
 
-final class PublishWorkspace
+final class NodeTreeWasPublishedFrom implements EventInterface
 {
 
     /**
-     * @Flow\Validate(type="NotEmpty")
+     * Workspace id of the node that was published from
+     *
      * @var string
      */
     private $workspaceId;
 
     /**
-     * @Flow\Validate(type="NotEmpty")
+     * Workspace id of the node that was published to
+     *
      * @var string
      */
     private $targetWorkspaceId;
+
 
     public function __construct(string $workspaceId, string $targetWorkspaceId)
     {
@@ -33,4 +36,5 @@ final class PublishWorkspace
     {
         return $this->targetWorkspaceId;
     }
+
 }

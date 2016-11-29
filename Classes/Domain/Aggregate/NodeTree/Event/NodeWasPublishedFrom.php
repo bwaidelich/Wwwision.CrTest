@@ -1,5 +1,5 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Event;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Event;
 
 use Neos\Cqrs\Event\EventInterface;
 

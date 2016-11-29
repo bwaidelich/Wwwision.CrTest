@@ -1,9 +1,9 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Workspace\Command;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 
-final class DiscardWorkspace
+final class DiscardNodeTree
 {
 
     /**

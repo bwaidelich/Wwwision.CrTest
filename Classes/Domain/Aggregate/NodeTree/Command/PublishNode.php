@@ -1,5 +1,5 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Command;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
 use Neos\Cqrs\EventStore\ExpectedVersion;
 use TYPO3\Flow\Annotations as Flow;

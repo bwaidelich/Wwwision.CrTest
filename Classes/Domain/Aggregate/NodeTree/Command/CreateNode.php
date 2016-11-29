@@ -1,38 +1,46 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Event;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
-use Neos\Cqrs\Event\EventInterface;
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Utility\Algorithms;
 
-final class NodeWasCreated implements EventInterface
+final class CreateNode
 {
     /**
+     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $nodeId;
 
     /**
+     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $workspaceId;
 
     /**
+     * @Flow\Validate(type="NotEmpty")
+     * @Flow\Validate(type="StringLength", options={"minimum": 3})
      * @var string
      */
     private $name;
 
     /**
-     * @var string one of the POSITION_* constants
+     * @Flow\Validate(type="NotEmpty")
+     * @Flow\Validate(type="RegularExpression", options={"regularExpression": "/^(before|into|after)$/"})
+     * @var string one of the Node::POSITION_* constants
      */
     private $position;
 
     /**
+     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $referenceNodeId;
 
-    public function __construct(string $nodeId, string $workspaceId, string $name, string $position, string $referenceNodeId)
+    public function __construct(string $workspaceId, string $name, string $position, string $referenceNodeId)
     {
-        $this->nodeId = $nodeId;
+        $this->nodeId = Algorithms::generateUUID();
         $this->workspaceId = $workspaceId;
         $this->name = $name;
         $this->position = $position;
@@ -62,6 +70,11 @@ final class NodeWasCreated implements EventInterface
     public function getReferenceNodeId(): string
     {
         return $this->referenceNodeId;
+    }
+
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 
 }

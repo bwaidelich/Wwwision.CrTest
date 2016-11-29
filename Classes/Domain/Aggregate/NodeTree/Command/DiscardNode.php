@@ -1,16 +1,18 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Event;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
-use Neos\Cqrs\Event\EventInterface;
+use TYPO3\Flow\Annotations as Flow;
 
-final class NodeWasDiscarded implements EventInterface
+final class DiscardNode
 {
     /**
+     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $nodeId;
 
     /**
+     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $workspaceId;
@@ -29,6 +31,11 @@ final class NodeWasDiscarded implements EventInterface
     public function getWorkspaceId(): string
     {
         return $this->workspaceId;
+    }
+
+    public function getNodeContextId(): string
+    {
+        return $this->nodeId . '@' . $this->workspaceId;
     }
 
 }

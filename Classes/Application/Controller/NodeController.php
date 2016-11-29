@@ -2,15 +2,16 @@
 namespace Wwwision\CrTest\Application\Controller;
 
 use Neos\Cqrs\EventStore\Exception\ConcurrencyException;
+use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Annotations as Flow;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\CreateNode;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\DiscardNode;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\MoveNode;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\PublishNode;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\RenameNode;
-use Wwwision\CrTest\Domain\Aggregate\Node\NodeCommandHandler;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\CreateNode;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\DiscardNode;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\MoveNode;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNode;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNodeTree;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\RenameNode;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\NodeTreeCommandHandler;
 use Wwwision\CrTest\Projection\Node\NodeFinder;
 use Wwwision\CrTest\Projection\Workspace\WorkspaceFinder;
 
@@ -31,9 +32,9 @@ class NodeController extends ActionController
 
     /**
      * @Flow\Inject
-     * @var NodeCommandHandler
+     * @var NodeTreeCommandHandler
      */
-    protected $nodeCommandHandler;
+    protected $nodeTreeCommandHandler;
 
     /**
      * @return void
@@ -59,7 +60,7 @@ class NodeController extends ActionController
      */
     public function createAction(CreateNode $command)
     {
-        $this->nodeCommandHandler->handleCreateNode($command);
+        $this->nodeTreeCommandHandler->handleCreateNode($command);
         $this->addFlashMessage('Created node "%s" in workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getWorkspaceId()]);
         $this->redirect('index');
     }
@@ -70,7 +71,7 @@ class NodeController extends ActionController
      */
     public function renameAction(RenameNode $command)
     {
-        $this->nodeCommandHandler->handleRenameNode($command);
+        $this->nodeTreeCommandHandler->handleRenameNode($command);
         $this->addFlashMessage('Renamed node "%s@%s" to "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getWorkspaceId(), $command->getNewName()]);
         $this->redirect('index');
     }
@@ -81,7 +82,7 @@ class NodeController extends ActionController
      */
     public function moveAction(MoveNode $command)
     {
-        $this->nodeCommandHandler->handleMoveNode($command);
+        $this->nodeTreeCommandHandler->handleMoveNode($command);
         $this->addFlashMessage('Moved node "%s" %s "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getPosition(), $command->getReferenceNodeId()]);
         $this->redirect('index');
     }
@@ -93,15 +94,13 @@ class NodeController extends ActionController
     public function publishAction(PublishNode $command)
     {
         try {
-            $this->nodeCommandHandler->handlePublishNode($command);
+            $this->nodeTreeCommandHandler->handlePublishNode($command);
         } catch (ConcurrencyException $exception) {
             $this->redirect('mergePreview', null, null, ['nodeId' => $command->getNodeId(), 'workspaceId' => $command->getSourceWorkspaceId()]);
         }
         $this->addFlashMessage('Published node "%s@%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getNodeId(), $command->getSourceWorkspaceId(), $command->getTargetWorkspaceId()]);
         $this->redirect('index');
     }
-
-
 
     /**
      * @param string $nodeId
@@ -121,7 +120,7 @@ class NodeController extends ActionController
      */
     public function discardAction(DiscardNode $command)
     {
-        $this->nodeCommandHandler->handleDiscardNode($command);
+        $this->nodeTreeCommandHandler->handleDiscardNode($command);
         $this->addFlashMessage('Discarded local changes of node "%s@%s"', 'Notice', Message::SEVERITY_NOTICE, [$command->getNodeId(), $command->getWorkspaceId()]);
         $this->redirect('index');
     }

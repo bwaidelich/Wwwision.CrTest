@@ -1,9 +1,9 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Event;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Event;
 
 use Neos\Cqrs\Event\EventInterface;
 
-final class NodeWasMaterialized implements EventInterface
+final class NodeWasDiscarded implements EventInterface
 {
     /**
      * @var string

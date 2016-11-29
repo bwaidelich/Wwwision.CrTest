@@ -1,26 +1,31 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Node\Command;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Event;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Cqrs\Event\EventInterface;
 
-final class DiscardNode
+final class NodeWasRenamed implements EventInterface
 {
     /**
-     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $nodeId;
 
     /**
-     * @Flow\Validate(type="NotEmpty")
      * @var string
      */
     private $workspaceId;
 
-    public function __construct(string $nodeId, string $workspaceId)
+    /**
+     * @var string
+     */
+    private $newName;
+
+
+    public function __construct(string $nodeId, string $workspaceId, string $newName)
     {
         $this->nodeId = $nodeId;
         $this->workspaceId = $workspaceId;
+        $this->newName = $newName;
     }
 
     public function getNodeId(): string
@@ -33,9 +38,9 @@ final class DiscardNode
         return $this->workspaceId;
     }
 
-    public function getNodeContextId(): string
+    public function getNewName(): string
     {
-        return $this->nodeId . '@' . $this->workspaceId;
+        return $this->newName;
     }
 
 }

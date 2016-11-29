@@ -1,9 +1,9 @@
 <?php
-namespace Wwwision\CrTest\Domain\Aggregate\Workspace\Command;
+namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 
-final class PublishWorkspacePartially
+final class PublishNodeTree
 {
 
     /**
@@ -18,22 +18,10 @@ final class PublishWorkspacePartially
      */
     private $targetWorkspaceId;
 
-    /**
-     * @Flow\Validate(type="NotEmpty")
-     * @var array
-     */
-    private $nodes;
-
-    /**
-     * @param string $workspaceId
-     * @param string $targetWorkspaceId
-     * @param array $nodes
-     */
-    public function __construct(string $workspaceId, string $targetWorkspaceId, array $nodes)
+    public function __construct(string $workspaceId, string $targetWorkspaceId)
     {
         $this->workspaceId = $workspaceId;
         $this->targetWorkspaceId = $targetWorkspaceId;
-        $this->nodes = $nodes;
     }
 
     public function getWorkspaceId(): string
@@ -44,10 +32,5 @@ final class PublishWorkspacePartially
     public function getTargetWorkspaceId(): string
     {
         return $this->targetWorkspaceId;
-    }
-
-    public function getNodes(): array
-    {
-        return $this->nodes;
     }
 }

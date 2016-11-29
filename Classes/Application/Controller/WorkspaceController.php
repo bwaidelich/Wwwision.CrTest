@@ -1,14 +1,13 @@
 <?php
 namespace Wwwision\CrTest\Application\Controller;
 
-use Neos\Cqrs\EventStore\Exception\ConcurrencyException;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Error\Message;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use Wwwision\CrTest\Domain\Aggregate\Node\Command\PublishNode;
-use Wwwision\CrTest\Domain\Aggregate\Workspace\Command\DiscardWorkspace;
-use Wwwision\CrTest\Domain\Aggregate\Workspace\Command\PublishWorkspace;
-use Wwwision\CrTest\Domain\Aggregate\Workspace\Command\PublishWorkspacePartially;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\DiscardNodeTree;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNodeTree;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNodeTreePartially;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\NodeTreeCommandHandler;
 use Wwwision\CrTest\Domain\Aggregate\Workspace\WorkspaceCommandHandler;
 use Wwwision\CrTest\Projection\Node\NodeFinder;
 
@@ -27,6 +26,14 @@ class WorkspaceController extends ActionController
      */
     protected $workspaceCommandHandler;
 
+
+    /**
+     * @Flow\Inject
+     * @var NodeTreeCommandHandler
+     */
+    protected $nodeTreeCommandHandler;
+
+
     /**
      * @param string $workspaceId
      * @return void
@@ -39,48 +46,37 @@ class WorkspaceController extends ActionController
         ]);
     }
 
+
     /**
-     * @param PublishWorkspace $command
+     * @param PublishNodeTree $command
      * @return void
      */
-    public function publishAction(PublishWorkspace $command)
+    public function publishAction(PublishNodeTree $command)
     {
-        $result = $this->workspaceCommandHandler->handlePublishWorkspace($command);
-        if ($result->hasNotices()) {
-            $this->flashMessageContainer->addMessage($result->getFirstNotice());
-        } else {
-            $this->addFlashMessage('Published all nodes from workspace "%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId(), $command->getTargetWorkspaceId()]);
-        }
+        $this->nodeTreeCommandHandler->handlePublish($command);
+        $this->addFlashMessage('Published node tree "%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId(), $command->getTargetWorkspaceId()]);
         $this->redirect('index', 'Node');
     }
 
     /**
-     * @param PublishWorkspacePartially $command
+     * @param PublishNodeTreePartially $command
      * @return void
      */
-    public function publishPartiallyAction(PublishWorkspacePartially $command)
+    public function publishPartiallyAction(PublishNodeTreePartially $command)
     {
-        $result = $this->workspaceCommandHandler->handlePublishWorkspacePartially($command);
-        if ($result->hasNotices()) {
-            $this->flashMessageContainer->addMessage($result->getFirstNotice());
-        } else {
-            $this->addFlashMessage('Published selected nodes from workspace "%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId(), $command->getTargetWorkspaceId()]);
-        }
+        $this->nodeTreeCommandHandler->handlePublishPartially($command);
+        $this->addFlashMessage('Published selected nodes from workspace "%s" to workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId(), $command->getTargetWorkspaceId()]);
         $this->redirect('index', 'Node');
     }
 
     /**
-     * @param DiscardWorkspace $command
+     * @param DiscardNodeTree $command
      * @return void
      */
-    public function discardAction(DiscardWorkspace $command)
+    public function discardAction(DiscardNodeTree $command)
     {
-        $result = $this->workspaceCommandHandler->handleDiscardWorkspace($command);
-        if ($result->hasNotices()) {
-            $this->flashMessageContainer->addMessage($result->getFirstNotice());
-        } else {
-            $this->addFlashMessage('Discarded all node changes in workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId()]);
-        }
+        $this->nodeTreeCommandHandler->handleDiscard($command);
+        $this->addFlashMessage('Discarded all node changes in workspace "%s"', 'Success', Message::SEVERITY_OK, [$command->getWorkspaceId()]);
         $this->redirect('index', 'Node');
     }
 

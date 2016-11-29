@@ -4,13 +4,12 @@ namespace Wwwision\CrTest\Projection\NodeLog;
 use Neos\Cqrs\EventStore\RawEvent;
 use Neos\Cqrs\Projection\Doctrine\AbstractAsynchronousDoctrineProjector;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\Algorithms;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasCreated;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasDiscarded;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasMaterialized;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasPublishedFrom;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasPublishedTo;
-use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasRenamed;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeWasCreated;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeWasDiscarded;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeWasPublishedFrom;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeWasPublishedTo;
+use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeWasRenamed;
 
 /**
  * @method NodeEvent get($identifier)
@@ -32,10 +31,10 @@ class NodeLogProjector extends AbstractAsynchronousDoctrineProjector
         $this->logEvent($event->getNodeId(), $event->getWorkspaceId(), $rawEvent);
     }
 
-    public function whenNodeWasMaterialized(NodeWasMaterialized $event, RawEvent $rawEvent)
-    {
-        $this->logEvent($event->getNodeId(), $event->getWorkspaceId(), $rawEvent);
-    }
+//    public function whenNodeWasMaterialized(NodeWasMaterialized $event, RawEvent $rawEvent)
+//    {
+//        $this->logEvent($event->getNodeId(), $event->getWorkspaceId(), $rawEvent);
+//    }
 
     public function whenNodeWasPublishedFrom(NodeWasPublishedFrom $event, RawEvent $rawEvent)
     {
