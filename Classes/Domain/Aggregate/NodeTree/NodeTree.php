@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Domain\Aggregate\NodeTree;
 
 use Neos\Cqrs\Domain\AbstractEventSourcedAggregateRoot;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodesWerePublishedFrom;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodesWerePublishedTo;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeTreeWasDiscarded;

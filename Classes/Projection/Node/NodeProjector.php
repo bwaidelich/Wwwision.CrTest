@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager as DoctrineEntityManager;
 use Neos\Cqrs\EventStore\ExpectedVersion;
 use Neos\Cqrs\EventStore\RawEvent;
 use Neos\Cqrs\Projection\Doctrine\AbstractDoctrineProjector;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodesWerePublishedTo;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeTreeWasDiscarded;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Event\NodeTreeWasPublishedFrom;

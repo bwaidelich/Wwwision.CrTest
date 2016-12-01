@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Domain\Aggregate\Workspace;
 
 use Neos\Cqrs\Domain\AbstractEventSourcedAggregateRoot;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\Workspace\Event\WorkspaceWasCreated;
 
 final class Workspace extends AbstractEventSourcedAggregateRoot

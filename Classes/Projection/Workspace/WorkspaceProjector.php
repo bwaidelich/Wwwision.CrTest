@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Projection\Workspace;
 
 use Neos\Cqrs\Projection\Doctrine\AbstractDoctrineProjector;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\Workspace\Event\WorkspaceWasCreated;
 
 class WorkspaceProjector extends AbstractDoctrineProjector

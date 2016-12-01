@@ -2,8 +2,8 @@
 namespace Wwwision\CrTest\Projection\Workspace;
 
 use Neos\Cqrs\Projection\Doctrine\AbstractDoctrineFinder;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\QueryInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\QueryInterface;
 
 /**
  * @Flow\Scope("singleton")

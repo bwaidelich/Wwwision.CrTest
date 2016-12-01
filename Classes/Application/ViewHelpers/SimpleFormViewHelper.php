@@ -1,7 +1,7 @@
 <?php
 namespace Wwwision\CrTest\Application\ViewHelpers;
 
-use TYPO3\Fluid\ViewHelpers\FormViewHelper;
+use Neos\FluidAdaptor\ViewHelpers\FormViewHelper;
 
 class SimpleFormViewHelper extends FormViewHelper
 {

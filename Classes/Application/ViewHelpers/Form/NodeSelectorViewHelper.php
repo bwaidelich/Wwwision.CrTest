@@ -1,8 +1,8 @@
 <?php
 namespace Wwwision\CrTest\Application\ViewHelpers\Form;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Fluid\ViewHelpers\Form\SelectViewHelper;
+use Neos\Flow\Annotations as Flow;
+use Neos\FluidAdaptor\ViewHelpers\Form\SelectViewHelper;
 use Wwwision\CrTest\Projection\Node\Node;
 use Wwwision\CrTest\Projection\Node\NodeFinder;
 

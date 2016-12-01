@@ -2,9 +2,9 @@
 namespace Wwwision\CrTest\Application\Controller;
 
 use Neos\Cqrs\EventStore\Exception\ConcurrencyException;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Message;
+use Neos\Flow\Mvc\Controller\ActionController;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\CreateNode;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\DiscardNode;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\MoveNode;

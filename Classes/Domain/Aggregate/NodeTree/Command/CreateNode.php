@@ -1,8 +1,8 @@
 <?php
 namespace Wwwision\CrTest\Domain\Aggregate\NodeTree\Command;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\Algorithms;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Utility\Algorithms;
 
 final class CreateNode
 {

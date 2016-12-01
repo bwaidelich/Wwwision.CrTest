@@ -1,9 +1,9 @@
 <?php
 namespace Wwwision\CrTest\Application\Controller;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Message;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Message;
+use Neos\Flow\Mvc\Controller\ActionController;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\DiscardNodeTree;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNodeTree;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\PublishNodeTreePartially;

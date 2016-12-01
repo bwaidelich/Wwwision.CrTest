@@ -2,8 +2,8 @@
 namespace Wwwision\CrTest\Domain\Aggregate\NodeTree;
 
 use Neos\Cqrs\EventStore\Exception\EventStreamNotFoundException;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Result;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Result;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\CreateNode;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\CreateSiteNode;
 use Wwwision\CrTest\Domain\Aggregate\NodeTree\Command\DiscardNode;
