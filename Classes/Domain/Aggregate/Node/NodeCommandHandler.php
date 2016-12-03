@@ -3,7 +3,7 @@ namespace Wwwision\CrTest\Domain\Aggregate\Node;
 
 use Neos\Cqrs\EventStore\Exception\EventStreamNotFoundException;
 use Neos\Cqrs\EventStore\ExpectedVersion;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\CreateNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\CreateSiteNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\DiscardNode;

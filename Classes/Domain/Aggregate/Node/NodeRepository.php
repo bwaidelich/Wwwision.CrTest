@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Domain\Aggregate\Node;
 
 use Neos\Cqrs\EventStore\AbstractEventSourcedRepository;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * @Flow\Scope("singleton")

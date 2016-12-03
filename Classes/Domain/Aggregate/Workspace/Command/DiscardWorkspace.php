@@ -1,7 +1,7 @@
 <?php
 namespace Wwwision\CrTest\Domain\Aggregate\Workspace\Command;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 final class DiscardWorkspace
 {

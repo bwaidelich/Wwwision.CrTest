@@ -2,9 +2,9 @@
 namespace Wwwision\CrTest\Domain\Aggregate\Workspace;
 
 use Neos\Cqrs\EventStore\ExpectedVersion;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Error\Notice;
-use TYPO3\Flow\Error\Result;
+use Neos\Flow\Annotations as Flow;
+use Neos\Error\Messages\Notice;
+use Neos\Error\Messages\Result;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\DiscardNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\PublishNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\NodeCommandHandler;

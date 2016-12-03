@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Projection\Node;
 
 use Neos\Cqrs\Projection\Doctrine\AbstractDoctrineFinder;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * @Flow\Scope("singleton")

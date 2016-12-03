@@ -3,8 +3,8 @@ namespace Wwwision\CrTest\Projection\NodeLog;
 
 use Neos\Cqrs\EventStore\RawEvent;
 use Neos\Cqrs\Projection\Doctrine\AbstractAsynchronousDoctrineProjector;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\Algorithms;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Utility\Algorithms;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasCreated;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasDiscarded;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasMaterialized;

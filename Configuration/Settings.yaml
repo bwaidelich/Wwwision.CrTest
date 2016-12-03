@@ -1,5 +1,6 @@
-TYPO3:
+
+Neos:
   Flow:
     mvc:
       routes:
-        'Wwwision.CrTest': true
+        Wwwision.CrTest: true

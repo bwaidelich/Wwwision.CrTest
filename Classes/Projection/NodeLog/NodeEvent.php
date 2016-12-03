@@ -3,7 +3,7 @@ namespace Wwwision\CrTest\Projection\NodeLog;
 
 use Doctrine\ORM\Mapping as ORM;
 use Neos\Cqrs\EventStore\ExpectedVersion;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * @Flow\Entity

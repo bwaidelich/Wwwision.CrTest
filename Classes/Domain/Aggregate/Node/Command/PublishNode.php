@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Domain\Aggregate\Node\Command;
 
 use Neos\Cqrs\EventStore\ExpectedVersion;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 final class PublishNode
 {

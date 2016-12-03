@@ -3,8 +3,8 @@ namespace Wwwision\CrTest\Application\Command;
 
 use Doctrine\Common\Persistence\ObjectManager as DoctrineObjectManager;
 use Doctrine\ORM\EntityManager;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Cli\CommandController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Cli\CommandController;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\CreateSiteNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\NodeCommandHandler;
 use Wwwision\CrTest\Domain\Aggregate\Workspace\Command\CreateWorkspace;

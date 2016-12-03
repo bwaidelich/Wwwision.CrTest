@@ -1,8 +1,8 @@
 <?php
 namespace Wwwision\CrTest\Application\Controller;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
 use Wwwision\CrTest\Projection\NodeLog\NodeEventFinder;
 
 class NodeLogController extends ActionController

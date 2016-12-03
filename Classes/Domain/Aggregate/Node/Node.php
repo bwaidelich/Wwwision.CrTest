@@ -2,7 +2,7 @@
 namespace Wwwision\CrTest\Domain\Aggregate\Node;
 
 use Neos\Cqrs\Domain\AbstractEventSourcedAggregateRoot;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Wwwision\CrTest\Domain\Aggregate\Node\Command\CreateNode;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasCreated;
 use Wwwision\CrTest\Domain\Aggregate\Node\Event\NodeWasDiscarded;
